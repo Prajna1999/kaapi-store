@@ -42,12 +42,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const login = (email: string) => {
     setUser({ email });
-    // ponytail: free grant hardcoded to 100; make configurable when admin panel exists
-    setBeans(100);
+    // ponytail: free grant hardcoded; make configurable when admin panel exists
+    setBeans(75);
     setTransactions([...INITIAL_TRANSACTIONS]);
     setShowAuth(false);
     setEmailInput("");
-    showToast("🎉 100 free beans added to your wallet!");
+    showToast("75 free beans added to your wallet");
   };
 
   const logout = () => {
@@ -66,7 +66,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const addBeans = (n: number, label: string) => {
     setBeans((b) => b + n);
     addTx({ type: "topup", beans: n, label });
-    showToast(`🫘 +${n} beans added to your wallet`);
+    showToast(`+${n} beans added to your wallet`);
   };
 
   return (
@@ -98,11 +98,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           >
             {/* Header strip */}
             <div className="bg-stone-900 px-8 py-6 text-center">
-              <div className="text-4xl mb-2">☕</div>
               <h2 className="text-xl font-bold text-white">Welcome to Kaapi</h2>
               <p className="text-stone-400 text-sm mt-1">
                 Sign in and get{" "}
-                <span className="text-amber-400 font-semibold">100 beans free</span>
+                <span className="text-amber-400 font-semibold">75 free beans</span>
               </p>
             </div>
 
@@ -112,7 +111,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 onClick={() => login("demo@kaapi.in")}
                 className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 text-base"
               >
-                <span>🚀</span> Try demo account instantly
+                Try demo account instantly
               </button>
 
               <div className="flex items-center gap-3 my-1">

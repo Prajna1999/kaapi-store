@@ -37,12 +37,12 @@ export const APPS: App[] = [
     description: "Transliterate field notes between English and Marathi instantly.",
     longDescription:
       "Designed for ASHA workers in rural Maharashtra, this tool converts your field notes from English script to Marathi and back — instantly. No copy-paste into Google Translate. No connectivity needed beyond the initial load.",
-    category: "Language",
-    costPerAction: 5,
-    rating: 4.8,
-    usageCount: 1243,
+    category: "Health",
+    costPerAction: 4,
+    rating: 4.6,
+    usageCount: 1847,
     status: "live",
-    icon: "🔤",
+    icon: "",
     color: "from-blue-500 to-indigo-600",
     inputPlaceholder: "Type in English (e.g. 'Patient has fever and cough')",
     outputLabel: "Marathi transliteration",
@@ -55,10 +55,10 @@ export const APPS: App[] = [
       "Letter Friends makes alphabet learning joyful and accessible. Each letter comes alive with animations, sounds, and relatable words. Built for children with learning differences, with support for dyslexia-friendly fonts.",
     category: "Education",
     costPerAction: 2,
-    rating: 4.9,
-    usageCount: 3891,
+    rating: 4.7,
+    usageCount: 2316,
     status: "live",
-    icon: "🔡",
+    icon: "",
     color: "from-emerald-500 to-teal-600",
     inputPlaceholder: "Enter a letter (e.g. 'A' or 'b')",
     outputLabel: "Learning guide",
@@ -69,12 +69,12 @@ export const APPS: App[] = [
     description: "Generate culturally resonant outreach stories for NGO campaigns.",
     longDescription:
       "Story Spark helps NGO communication teams create compelling narratives for field outreach. Feed it a topic or theme and get a story that resonates with rural Indian communities — ready to adapt for WhatsApp messages or pamphlets.",
-    category: "Communication",
-    costPerAction: 8,
-    rating: 4.6,
-    usageCount: 892,
+    category: "Law & Justice",
+    costPerAction: 7,
+    rating: 4.3,
+    usageCount: 403,
     status: "beta",
-    icon: "✨",
+    icon: "",
     color: "from-amber-500 to-orange-600",
     inputPlaceholder: "Enter a theme (e.g. 'water conservation in summer')",
     outputLabel: "Generated story",
@@ -82,12 +82,12 @@ export const APPS: App[] = [
 ];
 
 export const BEAN_PACKS: BeanPack[] = [
-  { id: "starter", beans: 100, price: 49, label: "Starter" },
-  { id: "popular", beans: 500, price: 199, label: "Popular", badge: "Best value" },
-  { id: "pro", beans: 1500, price: 499, label: "Pro" },
+  { id: "starter", beans: 120, price: 49, label: "Starter" },
+  { id: "popular", beans: 550, price: 199, label: "Popular", badge: "Best value" },
+  { id: "pro", beans: 1600, price: 499, label: "Pro" },
 ];
 
-export const CATEGORIES = ["All", "Language", "Education", "Communication"];
+export const CATEGORIES = ["All", "Education", "Health", "Law & Justice"];
 
 export const INITIAL_TRANSACTIONS: Transaction[] = [
   { id: "t1", type: "credit", beans: 100, label: "Welcome bonus", date: "2026-06-20" },

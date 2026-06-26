@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BEAN_PACKS } from "../lib/data";
 import { useStore } from "../lib/store";
+import { Bean } from "../components/icons";
+import { ArrowDownCircle, ArrowUpCircle, Gift, AlertTriangle, Ban, Check } from "lucide-react";
 
 export default function WalletPage() {
   const { user, beans, transactions, addBeans, openAuth } = useStore();
@@ -30,8 +32,8 @@ export default function WalletPage() {
       <div className="bg-stone-900 text-white rounded-3xl p-8 mb-8 text-center">
         <p className="text-stone-400 text-sm mb-3 uppercase tracking-widest font-medium">Your balance</p>
         <div className="flex items-center justify-center gap-4">
-          <span className="text-5xl">🫘</span>
-          <span className="text-7xl font-bold font-mono leading-none">{beans}</span>
+          <Bean className="w-12 h-12 text-amber-400" />
+          <span className="text-7xl font-bold font-mono tabular-nums leading-none">{beans}</span>
         </div>
         <p className="text-stone-500 text-sm mt-3">beans · {user.email}</p>
       </div>
@@ -39,7 +41,7 @@ export default function WalletPage() {
       {/* Low balance nudge */}
       {beans < 20 && beans > 0 && (
         <div className="bg-amber-50 ring-1 ring-amber-200 rounded-2xl px-5 py-4 mb-6 flex items-center gap-3">
-          <span className="text-2xl">⚠️</span>
+          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
           <div>
             <p className="font-semibold text-amber-800 text-sm">Running low on beans</p>
             <p className="text-amber-600 text-xs mt-0.5">Top up below to keep using your apps without interruption.</p>
@@ -48,7 +50,7 @@ export default function WalletPage() {
       )}
       {beans === 0 && (
         <div className="bg-red-50 ring-1 ring-red-200 rounded-2xl px-5 py-4 mb-6 flex items-center gap-3">
-          <span className="text-2xl">🚫</span>
+          <Ban className="w-5 h-5 text-red-600 shrink-0" />
           <div>
             <p className="font-semibold text-red-800 text-sm">Out of beans</p>
             <p className="text-red-600 text-xs mt-0.5">Pick a pack below to continue using your apps.</p>
@@ -79,12 +81,12 @@ export default function WalletPage() {
                   </div>
                 )}
                 {bought && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
-                    ✓ Added!
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap inline-flex items-center gap-1">
+                    <Check className="w-3 h-3" strokeWidth={3} /> Added
                   </div>
                 )}
                 <p className="font-semibold text-stone-600 text-sm mb-2">{pack.label}</p>
-                <p className="text-3xl font-bold font-mono text-stone-900">{pack.beans}</p>
+                <p className="text-3xl font-bold font-mono tabular-nums text-stone-900">{pack.beans}</p>
                 <p className="text-stone-400 text-xs mb-4">beans</p>
                 <button
                   onClick={() => handleTopUp(pack.id, pack.beans, pack.label)}
@@ -94,7 +96,7 @@ export default function WalletPage() {
                       : "bg-amber-500 hover:bg-amber-600 text-white"
                   }`}
                 >
-                  {bought ? "✓ Done" : `₹${pack.price}`}
+                  {bought ? "Done" : `₹${pack.price}`}
                 </button>
               </div>
             );
@@ -110,32 +112,34 @@ export default function WalletPage() {
         <h2 className="text-xl font-bold text-stone-900 mb-5">History</h2>
         {transactions.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-4xl mb-3">🫘</p>
+            <Bean className="w-10 h-10 mx-auto text-stone-300 mb-3" />
             <p className="text-stone-400 text-sm">No transactions yet</p>
           </div>
         ) : (
           <div className="bg-white rounded-2xl ring-1 ring-stone-200 divide-y divide-stone-100">
-            {transactions.map((tx) => (
-              <div key={tx.id} className="flex items-center justify-between px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-lg">
-                    {tx.type === "debit" ? "📤" : tx.type === "topup" ? "💳" : "🎁"}
-                  </span>
-                  <div>
-                    <p className="font-medium text-stone-900 text-sm">{tx.label}</p>
-                    <p className="text-stone-400 text-xs mt-0.5">{tx.date}</p>
+            {transactions.map((tx) => {
+              const Icon = tx.type === "debit" ? ArrowUpCircle : tx.type === "topup" ? ArrowDownCircle : Gift;
+              const iconColor = tx.type === "debit" ? "text-red-400" : "text-emerald-500";
+              return (
+                <div key={tx.id} className="flex items-center justify-between px-5 py-4">
+                  <div className="flex items-center gap-3">
+                    <Icon className={`w-5 h-5 ${iconColor}`} strokeWidth={2} />
+                    <div>
+                      <p className="font-medium text-stone-900 text-sm">{tx.label}</p>
+                      <p className="text-stone-400 text-xs mt-0.5">{tx.date}</p>
+                    </div>
                   </div>
+                  <span
+                    className={`font-mono font-semibold text-sm tabular-nums inline-flex items-center gap-1.5 ${
+                      tx.type === "debit" ? "text-red-500" : "text-emerald-600"
+                    }`}
+                  >
+                    {tx.type === "debit" ? "−" : "+"}{tx.beans}
+                    <Bean className="w-3.5 h-3.5" />
+                  </span>
                 </div>
-                <span
-                  className={`font-mono font-semibold text-sm ${
-                    tx.type === "debit" ? "text-red-500" : "text-emerald-600"
-                  }`}
-                >
-                  {tx.type === "debit" ? "−" : "+"}
-                  {tx.beans} 🫘
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>
